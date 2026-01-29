@@ -1126,10 +1126,17 @@ Pełna implementacja dostępna jako biblioteka `lagrangian-guidance` wraz z benc
 
 **Słowa kluczowe:** Large Language Models, AI Alignment, Energy-Based Models, Decoding Strategies, Hallucination Reduction, Inference-Time Steering
 
+**Status:** Metodologia empirycznie zweryfikowana, gotowa do zastosowań produkcyjnych, otwarte pytania teoretyczne
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
-
-
-**Status:** Metodologia empirycznie zweryfikowana, gotowa do zastosowań produkcyjnych, otwarte pytania teoretyczne
