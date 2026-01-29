@@ -48,7 +48,7 @@ Niech:
 
 (F) — zewnętrzna baza wiedzy (retrieval),
 
-(z_$\ell$) — wewnętrzne reprezentacje modelu (embeddingi warstwowe, attention states),
+($z_\ell$) — wewnętrzne reprezentacje modelu (embeddingi warstwowe, attention states),
 
 (G) — graf semantyczny reprezentujący relacje między jednostkami znaczeniowymi (tokeny, entita, fakty).
 
