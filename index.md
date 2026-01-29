@@ -71,50 +71,50 @@ gdzie:
 
 ($S_{\text{ctx}}$ (y,c)) — zgodność z kontekstem (np. retriev. cosine / entailment score),
 
-($S_{\text{fact}}$(y,F)) — podparcie faktami (retrieval + grounding confidence),
+($S_{\text{fact}}$ (y,F)) — podparcie faktami (retrieval + grounding confidence),
 
-(S_{\text{int}}(y,z)) — wewnętrzna spójność (np. self-consistency, attention cross-check),
+($S_{\text{int}}$ (y,z)) — wewnętrzna spójność (np. self-consistency, attention cross-check),
 
-(S_{\text{sem}}(y)) — semantyczna spójność (np. logic checks, contradiction detectors),
+($S_{\text{sem}}$ (y)) — semantyczna spójność (np. logic checks, contradiction detectors),
 
-(\sigma) — skalująca funkcja (np. sigmoid),
+($\sigma$) — skalująca funkcja (np. sigmoid),
 
-(\lambda) — wagi (hiperparametry).
+($\lambda$) — wagi (hiperparametry).
 
-## 2.2. Regularizer miłości ( \mathcal{R}_L )
+## 2.2. Regularizer miłości ( $\mathcal{R}_L$ )
 Dopisujemy do lossu:
 
-[
+$$
 \mathcal{L}{\text{total}} = \mathcal{L}{\text{NLL}} + \alpha \cdot \mathcal{R}_L
-]
+$$
 gdzie:
 
-[
+$$
 \mathcal{R}L = \mathbb{E}{(x,c)}\left[ ; \mathbb{E}{y \sim M\theta(\cdot|x,c)}\left[ \phi\big(1 - L(y,c,F,z)\big)\right]; \right]
-]
-(\phi) — karyzująca funkcja (np. linear: (\phi(u)=u), lub kwadratowa: (u^2), albo klipowana Huber),
+$$
+($\phi$) — karyzująca funkcja (np. linear: (\phi(u)=u), lub kwadratowa: (u^2), albo klipowana Huber),
 
-(\alpha) — siła regularizatora.
+($\alpha$) — siła regularizatora.
 
 Interpretacja: penalizujemy odpowiedzi o niskiej koherencji z punktu widzenia pola (L).
 
 
-## 3. Składniki (S_{\cdot}) — praktyczne konstrukcje
-### 3.1. (S_{\text{ctx}}(y,c)) — kontekstualne sprawdzenie zgodności
+## 3. Składniki ($S_{\cdot}$) — praktyczne konstrukcje
+### 3.1. ($S_{\text{ctx}}$ (y,c)) — kontekstualne sprawdzenie zgodności
 metoda: użyj modelu entailment / Natural Language Inference (NLI) lub retriever+reader:
 
 pobierz top-k fragmentów (r_1..r_k) z (c\cup F),
 
 oblicz entailment score: (s_i = \text{NLI}(y, r_i)),
 
-(S_{\text{ctx}} = \max_i s_i) lub ważona suma.
+($S_{\text{ctx}} = \max_i s_i$) lub ważona suma.
 
-### 3.2. (S_{\text{fact}}(y,F)) — parowanie z faktami (grounding)
+### 3.2. ($S_{\text{fact}}$ (y,F)) — parowanie z faktami (grounding)
 metoda: retrieval-augmented generation (RAG).
 
 score = similarity(y, retrieved_facts) × provenance_confidence.
 
-### 3.3. (S_{\text{int}}(y,z)) — wewnętrzna spójność
+### 3.3. ($S_{\text{int}}$ (y,z)) — wewnętrzna spójność
 metryki:
 
 Self-Consistency: generuj N wariantów (y_j), sprawdź wariancję faktów; mniejsza wariancja ⇒ wyższy (S_{\text{int}}).
