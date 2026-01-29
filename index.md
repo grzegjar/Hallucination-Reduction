@@ -69,9 +69,9 @@ $$
 
 gdzie:
 
-(S_{\text{ctx}}(y,c)) — zgodność z kontekstem (np. retriev. cosine / entailment score),
+($S_{\text{ctx}}$ (y,c)) — zgodność z kontekstem (np. retriev. cosine / entailment score),
 
-(S_{\text{fact}}(y,F)) — podparcie faktami (retrieval + grounding confidence),
+($S_{\text{fact}}$(y,F)) — podparcie faktami (retrieval + grounding confidence),
 
 (S_{\text{int}}(y,z)) — wewnętrzna spójność (np. self-consistency, attention cross-check),
 
