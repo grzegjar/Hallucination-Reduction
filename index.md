@@ -24,7 +24,7 @@ Celem: zmniejszyć halucynacje (nieuzasadnione, sprzeczne lub niepodparte odpowi
 
 
 ## 1. Intuicja i założenia
-Model (M_ $\theta$ ) ma generować tekst/odpowiedzi na podstawie wejścia (x).
+Model ($M_\theta$ ) ma generować tekst/odpowiedzi na podstawie wejścia (x).
 
 Halucynacja to w praktyce: wypowiedź (y) która jest niespójna z danymi kontekstowymi (c), zewnętrzną bazą faktów (F) lub z wewnętrzną semantyczną spójnością modelu.
 
