@@ -12,8 +12,7 @@ $$
 
 gdzie:
 
-- $H$ - reprezentuje halucynację (pewność bez dowodów), a 
-- $L$ - koherencję (ugruntowanie w kontekście).
+$H$ - reprezentuje halucynację (pewność bez dowodów), a $L$ - koherencję (ugruntowanie w kontekście).
 
 <!-- Dalej: wklej pozostałe sekcje dokładnie jak w przesłanym tekście: Założenia, Metodologia, Eksperymenty, Wyniki, Dyskusja, Ograniczenia, Future Work, Wnioski -->
 # WSTAWKI WSTAWKA MAIL 2
