@@ -8,11 +8,14 @@ Kluczowe równanie systemu:
 \[
 \mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda_H H(\theta) - \lambda_L L(\theta)
 \]
+$$
+\mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda_H H(\theta) - \lambda_L L(\theta)
+$$
 
 gdzie:
 
-    -\(H\) reprezentuje halucynację (pewność bez dowodów), a 
-    -\(L\) koherencję (ugruntowanie w kontekście).
+    -$\(H\)$ reprezentuje halucynację (pewność bez dowodów), a 
+    -$\(L\)$ koherencję (ugruntowanie w kontekście).
 
 <!-- Dalej: wklej pozostałe sekcje dokładnie jak w przesłanym tekście: Założenia, Metodologia, Eksperymenty, Wyniki, Dyskusja, Ograniczenia, Future Work, Wnioski -->
 # WSTAWKI WSTAWKA MAIL 2
