@@ -6,9 +6,9 @@ Przedstawiamy nową metodę sterowania dużymi modelami językowymi (LLM) podcza
 
 Kluczowe równanie systemu:
 
-    $$
+$$
     \mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda_H H(\theta) - \lambda_L L(\theta)
-    $$
+$$
 
 gdzie:
 
