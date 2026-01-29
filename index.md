@@ -12,7 +12,8 @@ $$
 
 gdzie:
 
-$\mathcal{H}$ - reprezentuje halucynację (pewność bez dowodów), a $\mathcal{L}$ - koherencję (ugruntowanie w kontekście).
+- H - reprezentuje halucynację (pewność bez dowodów), a 
+- L - koherencję (ugruntowanie w kontekście).
 
 <!-- Dalej: wklej pozostałe sekcje dokładnie jak w przesłanym tekście: Założenia, Metodologia, Eksperymenty, Wyniki, Dyskusja, Ograniczenia, Future Work, Wnioski -->
 # WSTAWKI WSTAWKA MAIL 2
@@ -23,7 +24,7 @@ Celem: zmniejszyć halucynacje (nieuzasadnione, sprzeczne lub niepodparte odpowi
 
 
 ## 1. Intuicja i założenia
-Model (M_\theta) ma generować tekst/odpowiedzi na podstawie wejścia (x).
+Model (M_$\theta$) ma generować tekst/odpowiedzi na podstawie wejścia (x).
 
 Halucynacja to w praktyce: wypowiedź (y) która jest niespójna z danymi kontekstowymi (c), zewnętrzną bazą faktów (F) lub z wewnętrzną semantyczną spójnością modelu.
 
