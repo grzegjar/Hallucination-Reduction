@@ -8,10 +8,16 @@ Kluczowe równanie systemu:
 \[
 \mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda_H H(\theta) - \lambda_L L(\theta)
 \]
-gdzie \(H\) reprezentuje halucynację (pewność bez dowodów), a \(L\) koherencję (ugruntowanie w kontekście).
+
+gdzie:
+
+    -\(H\) reprezentuje halucynację (pewność bez dowodów), a 
+    -\(L\) koherencję (ugruntowanie w kontekście).
 
 <!-- Dalej: wklej pozostałe sekcje dokładnie jak w przesłanym tekście: Założenia, Metodologia, Eksperymenty, Wyniki, Dyskusja, Ograniczenia, Future Work, Wnioski -->
-
+...
+uzupełnić
+...
 ## Kod i Reprodukowalność
 
 Pełna implementacja dostępna jako biblioteka `lagrangian-guidance` wraz z benchmarkami porównawczymi przeciwko RLHF i Constitutional AI.
