@@ -12,8 +12,8 @@ $$
 
 gdzie:
 
-- $H$ reprezentuje halucynację (pewność bez dowodów), a 
-- $L$ koherencję (ugruntowanie w kontekście).
+- $H$ - reprezentuje halucynację (pewność bez dowodów), a 
+- $L$ - koherencję (ugruntowanie w kontekście).
 
 <!-- Dalej: wklej pozostałe sekcje dokładnie jak w przesłanym tekście: Założenia, Metodologia, Eksperymenty, Wyniki, Dyskusja, Ograniczenia, Future Work, Wnioski -->
 # WSTAWKI WSTAWKA MAIL 2
@@ -23,7 +23,7 @@ Dobra, bracie — oto kompletny, praktyczny i matematyczny projekt wprowadzenia 
 Celem: zmniejszyć halucynacje (nieuzasadnione, sprzeczne lub niepodparte odpowiedzi) poprzez dodanie koherencyjnego, relacyjnego regularyzatora oraz kontrolnej pętli (meta-check). Operator (R_L) działa jako dodatkowy człon w funkcji kosztu i jako moduł walidacyjny podczas inferencji.
 
 
-1. Intuicja i założenia
+## 1. Intuicja i założenia
 Model (M_\theta) ma generować tekst/odpowiedzi na podstawie wejścia (x).
 
 Halucynacja to w praktyce: wypowiedź (y) która jest niespójna z danymi kontekstowymi (c), zewnętrzną bazą faktów (F) lub z wewnętrzną semantyczną spójnością modelu.
@@ -37,7 +37,7 @@ Regularizujący podczas treningu — dodatkowy składnik straty, który karze ni
 Kontrolny podczas inferencji — ocenia i filtruje lub modyfikuje generacje (meta-AI).
 
 
-2. Matematyczne definicje
+## 2. Matematyczne definicje
 Niech:
 
 (x) — wejście (prompt),
@@ -48,23 +48,25 @@ Niech:
 
 (F) — zewnętrzna baza wiedzy (retrieval),
 
-(z_\ell) — wewnętrzne reprezentacje modelu (embeddingi warstwowe, attention states),
+(z_$\ell$) — wewnętrzne reprezentacje modelu (embeddingi warstwowe, attention states),
 
 (G) — graf semantyczny reprezentujący relacje między jednostkami znaczeniowymi (tokeny, entita, fakty).
 
-2.1. Funkcja koherencji (L)
+## 2.1. Funkcja koherencji (L)
 Definiujemy skalarną funkcję koherencji:
 
-[
+$$
 L(y, c, F, z) \in [0,1],
-]
+$$
+
 gdzie 1 = maksymalna koherencja (zgodność, prawda-relacyjna), 0 = brak koherencji (silna halucynacja).
 
 Konstrukcja praktyczna: (L) to kombinacja składowych:
 
-[
+$$
 L = \sigma\big( \lambda_{\text{ctx}} \cdot S_{\text{ctx}} + \lambda_{\text{fact}} \cdot S_{\text{fact}} + \lambda_{\text{int}} \cdot S_{\text{int}} + \lambda_{\text{sem}} \cdot S_{\text{sem}} \big)
-]
+$$
+
 gdzie:
 
 (S_{\text{ctx}}(y,c)) — zgodność z kontekstem (np. retriev. cosine / entailment score),
@@ -79,7 +81,7 @@ gdzie:
 
 (\lambda) — wagi (hiperparametry).
 
-2.2. Regularizer miłości ( \mathcal{R}_L )
+## 2.2. Regularizer miłości ( \mathcal{R}_L )
 Dopisujemy do lossu:
 
 [
@@ -97,8 +99,8 @@ gdzie:
 Interpretacja: penalizujemy odpowiedzi o niskiej koherencji z punktu widzenia pola (L).
 
 
-3. Składniki (S_{\cdot}) — praktyczne konstrukcje
-3.1. (S_{\text{ctx}}(y,c)) — kontekstualne sprawdzenie zgodności
+## 3. Składniki (S_{\cdot}) — praktyczne konstrukcje
+### 3.1. (S_{\text{ctx}}(y,c)) — kontekstualne sprawdzenie zgodności
 metoda: użyj modelu entailment / Natural Language Inference (NLI) lub retriever+reader:
 
 pobierz top-k fragmentów (r_1..r_k) z (c\cup F),
@@ -107,12 +109,12 @@ oblicz entailment score: (s_i = \text{NLI}(y, r_i)),
 
 (S_{\text{ctx}} = \max_i s_i) lub ważona suma.
 
-3.2. (S_{\text{fact}}(y,F)) — parowanie z faktami (grounding)
+### 3.2. (S_{\text{fact}}(y,F)) — parowanie z faktami (grounding)
 metoda: retrieval-augmented generation (RAG).
 
 score = similarity(y, retrieved_facts) × provenance_confidence.
 
-3.3. (S_{\text{int}}(y,z)) — wewnętrzna spójność
+### 3.3. (S_{\text{int}}(y,z)) — wewnętrzna spójność
 metryki:
 
 Self-Consistency: generuj N wariantów (y_j), sprawdź wariancję faktów; mniejsza wariancja ⇒ wyższy (S_{\text{int}}).
@@ -121,14 +123,15 @@ Attention-coherence: porównaj attention patterns dla fragmentów odpowiadający
 
 practical: cosine similarity między reprezentacją końcowego tokena i reprezentacją retrieved fact.
 
-3.4. (S_{\text{sem}}(y)) — logic / contradiction checks
+### 3.4. (S_{\text{sem}}(y)) — logic / contradiction checks
 uruchom dedykowane detektory sprzeczności (rule-based, symbolic verifiers, Simple theorem prover dla krótkich faktów).
 
 map contradiction → niska wartość.
 
 
-4. Integracja w treningu — praktyczny pseudokod (PyTorch-like)
+## 4. Integracja w treningu — praktyczny pseudokod (PyTorch-like)
 # Pseudokod: trening z R_L regularizer
+```
 for batch in dataloader:
     x, c, target = batch
     logits, z = model.forward(x, context=c, return_reprs=True)
@@ -151,6 +154,7 @@ for batch in dataloader:
 
     loss.backward()
     optimizer.step()
+```
 
 Uwagi praktyczne:
 
@@ -161,7 +165,7 @@ Możesz uczyć lekkie proxy scorery (s_\cdot) razem z głównym modelem (student
 Wczesne fazy: małe (\alpha) → rosnące; curriculum learning.
 
 
-5. Integracja podczas inferencji (meta-AI loop)
+## 5. Integracja podczas inferencji (meta-AI loop)
 Podczas generowania przyjmujemy pętlę:
 
 Model (M_\theta) wygeneruje kandydat (y) (beam / sample).
@@ -178,6 +182,7 @@ Jeśli (L < \tau_{\text{repair}}): reject; albo fallback to retrieval-based answ
 
 Pseudokod inferencji:
 
+```
 def generate_with_RL(prompt, context):
     y_cands = model.generate_beams(prompt, context, k=K)
     scores = [compute_L(y, context, F, z) for y in y_cands]
@@ -188,11 +193,12 @@ def generate_with_RL(prompt, context):
         return repair_and_return(y_cands[best_idx], context)
     else:
         return fallback_retrieval_answer(context)
+```
 
 Praktyka: ustaw (\tau_{\text{accept}}) wysoki (np. 0.85), (\tau_{\text{repair}}) umiarkowany (0.6–0.85). Kalibracja na dev-setach.
 
 
-6. Architektura modularna — komponenty (R_L)
+## 6. Architektura modularna — komponenty (R_L)
 Rekomendowana modułowa implementacja:
 
 Retriever: dense retriever (FAISS).
@@ -214,7 +220,7 @@ Schemat:
 prompt -> model -> candidate -> [retriever, nli, internal_module, semantic_checker] -> R_L -> policy -> (accept | repair | fallback)
 
 
-7. Metryki ewaluacyjne i datasety testowe
+## 7. Metryki ewaluacyjne i datasety testowe
 Metryki:
 Hallucination Rate (HR) — % odpowiedzi które zawierają nieprawdziwe stwierdzenia. (gold-labeled)
 
@@ -238,7 +244,7 @@ dialog hallucination corpora.
 Kalibracja: przetestować (\alpha, \lambda) i progi (\tau) na holdoutach.
 
 
-8. Optymalizacje i praktyczne przyspieszenia
+## 8. Optymalizacje i praktyczne przyspieszenia
 Distillowane scoring heads: trenuj małe heads, które szybko przewidują (L) bez pełnego retrievalu.
 
 Asynchroniczne retrievery: cache retrieval results, incremental retrieval.
@@ -250,7 +256,8 @@ Selective application: używaj R_L tylko gdy model generuje wysoką “niepewno�
 Mixed precision & batching: przyspiesz scoring.
 
 
-9. Przykład prostego implementacyjnego bloku (schematyczny, PyTorch-like)
+## 9. Przykład prostego implementacyjnego bloku (schematyczny, PyTorch-like)
+```
 class RLOperator:
     def __init__(self, retriever, nli_model, internal_net, sem_checker, lambdas, alpha):
         self.retriever = retriever
@@ -273,9 +280,9 @@ class RLOperator:
         L_vals = [self.compute_L(y,c,z) for (y,c,z) in candidate_batch]
         R_L = torch.mean((1.0 - torch.tensor(L_vals))**2)
         return self.alpha * R_L
+```
 
-
-10. Testy ablatywne i eksperymenty kontrolne
+## 10. Testy ablatywne i eksperymenty kontrolne
 Zaprojektuj eksperymenty:
 
 Baseline (bez R_L) vs R_L (training only) vs R_L (train+inference) — porównaj HR i human eval.
@@ -287,7 +294,7 @@ Test przepustowości: czy selective-apply R_L zachowuje HR, zmniejszając koszty
 Stress test: adversarial prompts (red teaming), mierzyć false accept/repair rates.
 
 
-11. Ograniczenia, ryzyka i uwagi etyczne
+## 11. Ograniczenia, ryzyka i uwagi etyczne
 Koszt obliczeniowy: retriever, NLI i meta-skoring kosztują. Użyć selective-apply lub distillacji.
 
 Fałszywe korekty: R_L może przesadnie filtrować kreatywne, szacunkowe odpowiedzi — dobranie progów jest krytyczne.
@@ -299,7 +306,7 @@ Nadużycie: mechanizmy korekcyjne można wykorzystać do cenzurowania (zadbaj o 
 Human-in-the-loop: zawsze uwzględniaj ludzi w pętli dla wątpliwych lub etycznie newralgicznych przypadków.
 
 
-12. Mierzalne cele sukcesu (kpi)
+## 12. Mierzalne cele sukcesu (kpi)
 zmniejszenie Hallucination Rate o ≥ 40% na benchmarkach factual.
 
 human-A/B preferencja > 60% dla R_L-enabled.
@@ -309,7 +316,7 @@ utrzymanie latency increase < 2× (z selective-apply).
 stabilność: false-rejection rate < 5% dla przyjętych odpowiedzi.
 
 
-13. Krótkie podsumowanie — co zrobić teraz (implementacja krok po kroku)
+## 13. Krótkie podsumowanie — co zrobić teraz (implementacja krok po kroku)
 Zaimplementuj retriever + lekki NLI (baseline).
 
 Trenuj i destyluj wewnętrzny coherence head (proxy dla (S_{\text{int}})).
