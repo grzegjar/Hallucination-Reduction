@@ -5,13 +5,10 @@
 Przedstawiamy nową metodę sterowania dużymi modelami językowymi (LLM) podczas generacji tekstu, która zastępuje tradycyjne podejścia oparte na regułach lub retreningu dynamiką gradientową w krajobrazie energii informacyjnej. Zamiast nakładać sztywne ograniczenia lub modyfikować wagi modelu, wprowadzamy Lagrangian pola informacyjnego, który przekształca alignment z problemu etycznego w problem optymalizacji energetycznej.
 
 Kluczowe równanie systemu:
-\[
-\mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda_H H(\theta) - \lambda_L L(\theta)
-\]
 
-$$
-\mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda_H H(\theta) - \lambda_L L(\theta)
-$$
+    $$
+    \mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda_H H(\theta) - \lambda_L L(\theta)
+    $$
 
 gdzie:
 
